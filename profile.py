@@ -19,6 +19,10 @@ Startup scripts will still be running when your experiment becomes ready.
 Watch the "Startup" column on the "List View" tab for your experiment and wait
 until all of the compute nodes show "Finished" before proceeding.
 
+Note: You will be opening several SSH sessions on a single node. Using a
+terminal multiplexing solution like `screen` or `tmux`, both of which are
+installed on the image for this profile, is recommended.
+
 After all startup scripts have finished...
 
 In an SSH session on `node`:
@@ -31,24 +35,36 @@ sudo ip netns add ue1
 tail -f /var/log/open5gs/amf.log
 ```
 
-In a second session on `node`:
+In a second session:
+
+```
+# use tshark to monitor 5G core network function traffic
+sudo tshark -i lo \
+  -f "not arp and not port 53 and not host archive.ubuntu.com and not host security.ubuntu.com and not tcp" \
+  -Y "s1ap || gtpv2 || pfcp || diameter || gtp || ngap || http2.data.data || http2.headers"
+sudo tshark -i lo -Y "s1ap || gtpv2 || pfcp || diameter || gtp || ngap || http2.data.data || http2.headers"
+```
+
+In a third session:
 
 ```
 # start the gNodeB
 sudo srsenb
 ```
 
-The AMF should show a connection from the gNodeB via the N2 interface.
+The AMF should show a connection from the gNodeB via the N2 interface and
+`tshark` will show NG setup/response messages.
 
-In a third session on `node`:
+In a forth session:
 
 ```
 # start the UE
 sudo srsue
 ```
 
-The UE should attach to the network with the AMF log and gNodeB process
-indicating as much.
+As the UE attaches to the network, the AMF log and gNodeB process will show
+progress and you will see NGAP/NAS traffic in the output from `tshark` as a PDU
+session for the UE is eventually established.
 
 At this point, you should be able to pass traffic across the network via the
 previously created namespace in yet another session on the same node:
@@ -58,7 +74,21 @@ previously created namespace in yet another session on the same node:
 sudo ip netns exec ue1 ping 10.45.0.1
 ```
 
-Note: when ZMQ is used by srsRAN to pass IQ samples, if you restart of the
+You can also use `iperf3` to generate traffic. E.g., for downlink, in one session:
+
+```
+# start iperf3 server for UE
+sudo ip netns exec ue1 iperf3 -s
+```
+
+And in another:
+
+```
+# start iperf3 client for CN data network
+sudo iperf3 -c {ip of UE (indicated in srsue stdout)}
+```
+
+Note: When ZMQ is used by srsRAN to pass IQ samples, if you restart of the
 `srsenb` or `srsue` processes, you must restart the other.
 
 """

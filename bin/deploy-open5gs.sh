@@ -10,8 +10,10 @@ fi
 sudo apt update
 sudo apt install -y software-properties-common
 sudo add-apt-repository -y ppa:open5gs/latest
+sudo add-apt-repository -y ppa:wireshark-dev/stable
+echo "wireshark-common wireshark-common/install-setuid boolean false" | sudo debconf-set-selections
 sudo apt update
-sudo apt install -y open5gs
+sudo apt install -y iperf3 open5gs tshark wireshark
 sudo cp /local/repository/etc/open5gs/* /etc/open5gs/
 
 sudo systemctl restart open5gs-mmed
