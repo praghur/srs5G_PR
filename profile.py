@@ -42,7 +42,6 @@ In a second session:
 sudo tshark -i lo \
   -f "not arp and not port 53 and not host archive.ubuntu.com and not host security.ubuntu.com and not tcp" \
   -Y "s1ap || gtpv2 || pfcp || diameter || gtp || ngap || http2.data.data || http2.headers"
-sudo tshark -i lo -Y "s1ap || gtpv2 || pfcp || diameter || gtp || ngap || http2.data.data || http2.headers"
 ```
 
 In a third session:
@@ -91,6 +90,10 @@ sudo iperf3 -c {ip of UE (indicated in srsue stdout)}
 Note: When ZMQ is used by srsRAN to pass IQ samples, if you restart of the
 `srsenb` or `srsue` processes, you must restart the other.
 
+You can find more information about the open source 5G software used in this profile at:
+
+https://open5gs.org
+https://github.com/srsran/srsRAN
 """
 
 
