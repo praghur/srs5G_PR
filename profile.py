@@ -6,7 +6,7 @@ import geni.rspec.igext as IG
 
 tourDescription = """
 
-## srsRAN 5G with Open5GS and Simulated RF
+### srsRAN 5G with Open5GS and Simulated RF
 
 This profile instantiates a single-node experiment for running and end to end 5G
 network using srsRAN 22.04 and Open5GS with IQ samples passed via ZMQ between
