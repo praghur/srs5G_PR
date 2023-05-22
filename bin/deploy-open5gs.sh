@@ -1,6 +1,10 @@
+#!/bin/bash
 set -ex
 BINDIR=`dirname $0`
 source $BINDIR/common.sh
+
+sudo sysctl -w net.ipv4.ip_forward=1
+sudo iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
 
 if [ -f $SRCDIR/open5gs-setup-complete ]; then
     echo "setup already ran; not running again"
@@ -33,6 +37,18 @@ sudo systemctl restart open5gs-bsfd
 sudo systemctl restart open5gs-udrd
 
 #TODO: find a better method for adding subscriber info
+
+# need to install mongodb-mongosh to use open5gs-dbctl
+sudo apt-get install gnupg
+curl -fsSL https://pgp.mongodb.com/server-6.0.asc | \
+    sudo gpg -o /usr/share/keyrings/mongodb-server-6.0.gpg \
+    --dearmor
+
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-6.0.gpg ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/6.0 multiverse" | \
+    sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+sudo apt update
+sudo apt install -y mongodb-mongosh
+
 cd $SRCDIR
 wget https://raw.githubusercontent.com/open5gs/open5gs/main/misc/db/open5gs-dbctl
 chmod +x open5gs-dbctl
