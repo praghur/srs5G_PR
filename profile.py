@@ -87,8 +87,8 @@ And in another:
 sudo iperf3 -c {ip of UE (indicated in srsue stdout)}
 ```
 
-Note: When ZMQ is used by srsRAN to pass IQ samples, if you restart of the
-`srsenb` or `srsue` processes, you must restart the other.
+Note: When ZMQ is used by srsRAN to pass IQ samples, if you restart either of the
+`srsenb` or `srsue` processes, you must restart the other as well.
 
 You can find more information about the open source 5G software used in this profile at:
 
