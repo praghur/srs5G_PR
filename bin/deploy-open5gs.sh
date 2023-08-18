@@ -17,7 +17,22 @@ sudo add-apt-repository -y ppa:open5gs/latest
 sudo add-apt-repository -y ppa:wireshark-dev/stable
 echo "wireshark-common wireshark-common/install-setuid boolean false" | sudo debconf-set-selections
 sudo apt update
-sudo apt install -y iperf3 open5gs tshark wireshark
+sudo apt-get install gnupg
+curl -fsSL https://pgp.mongodb.com/server-6.0.asc | \
+    sudo gpg -o /usr/share/keyrings/mongodb-server-6.0.gpg --dearmor
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-6.0.gpg ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/6.0 multiverse" | \
+    sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+sudo apt update
+sudo apt install -y \
+    mongodb-org \
+    mongodb-mongosh \
+    iperf3 \
+    tshark \
+    wireshark
+
+sudo systemctl start mongod
+sudo systemctl enable mongod
+sudo apt install -y open5gs
 sudo cp /local/repository/etc/open5gs/* /etc/open5gs/
 
 sudo systemctl restart open5gs-mmed
@@ -35,19 +50,6 @@ sudo systemctl restart open5gs-pcfd
 sudo systemctl restart open5gs-nssfd
 sudo systemctl restart open5gs-bsfd
 sudo systemctl restart open5gs-udrd
-
-#TODO: find a better method for adding subscriber info
-
-# need to install mongodb-mongosh to use open5gs-dbctl
-sudo apt-get install gnupg
-curl -fsSL https://pgp.mongodb.com/server-6.0.asc | \
-    sudo gpg -o /usr/share/keyrings/mongodb-server-6.0.gpg \
-    --dearmor
-
-echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-6.0.gpg ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/6.0 multiverse" | \
-    sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
-sudo apt update
-sudo apt install -y mongodb-mongosh
 
 cd $SRCDIR
 wget https://raw.githubusercontent.com/open5gs/open5gs/main/misc/db/open5gs-dbctl

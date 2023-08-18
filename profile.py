@@ -101,18 +101,40 @@ BIN_PATH = "/local/repository/bin"
 ETC_PATH = "/local/repository/etc"
 SRS_DEPLOY_SCRIPT = os.path.join(BIN_PATH, "deploy-srs.sh")
 OPEN5GS_DEPLOY_SCRIPT = os.path.join(BIN_PATH, "deploy-open5gs.sh")
-UBUNTU_IMG = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU18-64-STD"
-DEFAULT_SRS_HASH = "release_22_04"
+UBUNTU_IMG = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD"
+DEFAULT_SRS_HASHES = {
+    "srsGUI": "a277a1ac210b5020060360e74b6d6e027355af05",
+    "srsRAN_4G": "release_23_04_1",
+    "srsRAN_5G": "release_23_5",
+}
 
 pc = portal.Context()
+node_types = [
+    ("d430", "Emulab, d430"),
+    ("d740", "Emulab, d740"),
+]
+
+pc.defineParameter(
+    name="nodetype",
+    description="Type of compute node to used.",
+    typ=portal.ParameterType.STRING,
+    defaultValue=node_types[0],
+    legalValues=node_types,
+    advanced=True,
+)
+
+params = pc.bindParameters()
+pc.verifyParameters()
 request = pc.makeRequestRSpec()
 
 node = request.RawPC("node")
-node.hardware_type = "d430"
+node.hardware_type = params.nodetype
 node.disk_image = UBUNTU_IMG
 
-cmd = "{} {}".format(SRS_DEPLOY_SCRIPT, DEFAULT_SRS_HASH)
-node.addService(rspec.Execute(shell="bash", command=cmd))
+for srs_type, type_hash in DEFAULT_SRS_HASHES.items():
+    cmd = "{} '{}' {}".format(SRS_DEPLOY_SCRIPT, type_hash, srs_type)
+    node.addService(rspec.Execute(shell="bash", command=cmd))
+
 node.addService(rspec.Execute(shell="bash", command=OPEN5GS_DEPLOY_SCRIPT))
 
 tour = IG.Tour()
