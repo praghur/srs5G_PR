@@ -9,8 +9,9 @@ tourDescription = """
 ### srsRAN 5G with Open5GS and Simulated RF
 
 This profile instantiates a single-node experiment for running and end to end 5G
-network using srsRAN 22.04 and Open5GS with IQ samples passed via ZMQ between
-the gNodeB and the UE. It requires a single Dell d430 compute node.
+network using srsRAN_Project 23.5 (gNodeB), srsRAN_4G (UE), and Open5GS with IQ
+samples passed via ZMQ between the gNodeB and the UE. It requires a single Dell
+d430 compute node.
 
 """
 tourInstructions = """
@@ -48,7 +49,7 @@ In a third session:
 
 ```
 # start the gNodeB
-sudo srsenb
+sudo gnb -c /etc/srsran/gnb.conf
 ```
 
 The AMF should show a connection from the gNodeB via the N2 interface and
@@ -88,7 +89,7 @@ sudo iperf3 -c {ip of UE (indicated in srsue stdout)}
 ```
 
 Note: When ZMQ is used by srsRAN to pass IQ samples, if you restart either of the
-`srsenb` or `srsue` processes, you must restart the other as well.
+`gnb` or `srsue` processes, you must restart the other as well.
 
 You can find more information about the open source 5G software used in this profile at:
 
