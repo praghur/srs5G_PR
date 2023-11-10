@@ -64,6 +64,7 @@ install_srsran_project () {
 }
 
 install_srsran_gui () {
+    sudo apt update
     sudo apt install -y \
         libboost-system-dev \
         libboost-test-dev \
