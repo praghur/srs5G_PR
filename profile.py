@@ -105,7 +105,7 @@ OPEN5GS_DEPLOY_SCRIPT = os.path.join(BIN_PATH, "deploy-open5gs.sh")
 UBUNTU_IMG = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD"
 DEFAULT_SRS_HASHES = {
     "srsRAN_4G": "release_23_04_1",
-    "srsRAN_Project": "release_23_5",
+    "srsRAN_Project": "release_24_04",
 }
 
 pc = portal.Context()
