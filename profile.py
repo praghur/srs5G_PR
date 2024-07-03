@@ -139,6 +139,16 @@ for srs_type, type_hash in DEFAULT_SRS_HASHES.items():
 
 node.addService(rspec.Execute(shell="bash", command=OPEN5GS_DEPLOY_SCRIPT))
 
+# Create separate LAN links
+link1 = request.LAN("lan1")
+
+# Add interfaces to each LAN link
+link1.addInterface(iface1)
+
+link1.link_multiplexing = True
+link1.vlan_tagging = True
+link1.best_effort = True
+
 tour = IG.Tour()
 tour.Description(IG.Tour.MARKDOWN, tourDescription)
 tour.Instructions(IG.Tour.MARKDOWN, tourInstructions)
