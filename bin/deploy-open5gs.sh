@@ -54,6 +54,6 @@ sudo systemctl restart open5gs-udrd
 cd $SRCDIR
 wget https://raw.githubusercontent.com/open5gs/open5gs/main/misc/db/open5gs-dbctl
 chmod +x open5gs-dbctl
-./open5gs-dbctl add_ue_with_apn 001010000000000 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA internet  # IMSI,K,OPC
-./open5gs-dbctl type 001010000000000 1  # APN type IPV4
+./open5gs-dbctl add_ue_with_apn 999700123456789 00112233445566778899aabbccddeeff 63BFA50EE6523365FF14C1F45F88737D internet  # IMSI,K,OPC
+./open5gs-dbctl type 999700123456789 1  # APN type IPV4
 touch $SRCDIR/open5gs-setup-complete
