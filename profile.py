@@ -127,10 +127,10 @@ params = pc.bindParameters()
 pc.verifyParameters()
 request = pc.makeRequestRSpec()
 
-5gcore = request.RawPC("5gcore")
-5gcore.hardware_type = params.nodetype
-5gcore.disk_image = UBUNTU_IMG
-iface1 = 5gcore.addInterface("eth1")
+core = request.RawPC("core")
+core.hardware_type = params.nodetype
+core.disk_image = UBUNTU_IMG
+iface1 = core.addInterface("eth1")
 iface1.addAddress(rspec.IPv4Address("192.168.0.11", "255.255.255.0"))
 
 node1 = request.RawPC("node1")
@@ -143,7 +143,7 @@ for srs_type, type_hash in DEFAULT_SRS_HASHES.items():
     cmd = "{} '{}' {}".format(SRS_DEPLOY_SCRIPT, type_hash, srs_type)
     node1.addService(rspec.Execute(shell="bash", command=cmd))
 
-5gcore.addService(rspec.Execute(shell="bash", command=OPEN5GS_DEPLOY_SCRIPT))
+core.addService(rspec.Execute(shell="bash", command=OPEN5GS_DEPLOY_SCRIPT))
 
 # Create two separate LAN links
 link1 = request.LAN("lan1")
