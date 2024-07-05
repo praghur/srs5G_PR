@@ -13,14 +13,11 @@ amf:
       - address: 127.0.0.5
         port: 7777
     client:
-#      nrf:
-#        - uri: http://127.0.0.10:7777
       scp:
         - uri: http://127.0.0.200:7777
   ngap:
     server:
-      #- address: 192.168.0.11
-      - address: 127.0.0.5
+       - address: 127.0.0.5
   metrics:
     server:
       - address: 127.0.0.5
