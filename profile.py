@@ -49,7 +49,7 @@ In a third session:
 
 ```
 # start the gNodeB
-sudo gnb -c local/repository/etc/srsran/gnb.conf
+sudo gnb -c /local/repository/etc/srsran/gnb1.conf
 ```
 
 The AMF should show a connection from the gNodeB via the N2 interface and
@@ -59,7 +59,7 @@ In a forth session:
 
 ```
 # start the UE
-sudo srsue local/repository/etc/srsran/ue.conf
+sudo srsue /local/repository/etc/srsran/ue1.conf
 ```
 
 As the UE attaches to the network, the AMF log and gNodeB process will show
