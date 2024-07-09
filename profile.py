@@ -156,10 +156,17 @@ node2.disk_image = UBUNTU_IMG
 iface3 = node2.addInterface("eth1")
 iface3.addAddress(rspec.IPv4Address("192.168.0.33", "255.255.255.0"))
 
+node3 = request.RawPC("node3")
+node3.hardware_type = params.nodetype
+node3.disk_image = UBUNTU_IMG
+iface4 = node3.addInterface("eth1")
+iface4.addAddress(rspec.IPv4Address("192.168.0.44", "255.255.255.0"))
+
 for srs_type, type_hash in DEFAULT_SRS_HASHES.items():
     cmd = "{} '{}' {}".format(SRS_DEPLOY_SCRIPT, type_hash, srs_type)
     node1.addService(rspec.Execute(shell="bash", command=cmd))
     node2.addService(rspec.Execute(shell="bash", command=cmd))
+    node3.addService(rspec.Execute(shell="bash", command=cmd))
 
 core.addService(rspec.Execute(shell="bash", command=OPEN5GS_DEPLOY_SCRIPT))
 
@@ -170,6 +177,7 @@ link1 = request.LAN("lan1")
 link1.addInterface(iface1)
 link1.addInterface(iface2)
 link1.addInterface(iface3)
+link1.addInterface(iface4)
 
 link1.link_multiplexing = True
 link1.vlan_tagging = True
