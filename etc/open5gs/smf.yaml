@@ -47,7 +47,12 @@ smf:
 #    - ::1
 #  ctf:
 #    enabled: auto   # auto(default)|yes|no
-  freeDiameter: /etc/freeDiameter/smf.conf
+ # freeDiameter: /etc/freeDiameter/smf.conf
+ info:
+    - s_nssai:
+        - sst: 2
+          dnn:
+            - internet
 
 ################################################################################
 # SMF Info
