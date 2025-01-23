@@ -116,7 +116,7 @@ OPEN5GS_DEPLOY_SCRIPT = os.path.join(BIN_PATH, "deploy-open5gs.sh")
 UBUNTU_IMG = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD"
 DEFAULT_SRS_HASHES = {
     "srsRAN_4G": "release_23_04_1",
-    "srsRAN_Project": "release_24_04",
+    "srsRAN_Project": "release_24_10_1",
 }
 
 pc = portal.Context()
@@ -126,7 +126,7 @@ node_types = [
 ]
 
 pc.defineParameter(
-    name="nodetype",
+    name="sdr_nodetype",
     description="Type of compute node to used.",
     typ=portal.ParameterType.STRING,
     defaultValue=node_types[0],
@@ -134,24 +134,32 @@ pc.defineParameter(
     advanced=True,
 )
 
+pc.defineParameter(
+    name="cn_nodetype",
+    description="Type of compute node to use for CN node.",
+    typ=portal.ParameterType.STRING,
+    defaultValue=node_types[0],
+    legalValues=node_types,
+)
+
 params = pc.bindParameters()
 pc.verifyParameters()
 request = pc.makeRequestRSpec()
 
 core = request.RawPC("core")
-core.hardware_type = params.nodetype
+core.hardware_type = params.cn_nodetype
 core.disk_image = UBUNTU_IMG
 iface1 = core.addInterface("eth1")
 iface1.addAddress(rspec.IPv4Address("192.168.0.11", "255.255.255.0"))
 
 node1 = request.RawPC("node1")
-node1.hardware_type = params.nodetype
+node1.hardware_type = params.sdr_nodetype
 node1.disk_image = UBUNTU_IMG
 iface2 = node1.addInterface("eth1")
 iface2.addAddress(rspec.IPv4Address("192.168.0.22", "255.255.255.0"))
 
 node2 = request.RawPC("node2")
-node2.hardware_type = params.nodetype
+node2.hardware_type = params.sdr_nodetype
 node2.disk_image = UBUNTU_IMG
 iface3 = node2.addInterface("eth1")
 iface3.addAddress(rspec.IPv4Address("192.168.0.33", "255.255.255.0"))
