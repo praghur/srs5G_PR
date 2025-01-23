@@ -126,7 +126,7 @@ node_types = [
 ]
 
 pc.defineParameter(
-    name="nodetype",
+    name="sdr_nodetype",
     description="Type of compute node to used with the SDRs.",
     typ=portal.ParameterType.STRING,
     defaultValue=node_types[1],
@@ -134,7 +134,7 @@ pc.defineParameter(
 )
 
 pc.defineParameter(
-    name="nodetype",
+    name="cn_nodetype",
     description="Type of compute node to use for CN node.",
     typ=portal.ParameterType.STRING,
     defaultValue=node_types[0],
@@ -146,20 +146,20 @@ pc.verifyParameters()
 request = pc.makeRequestRSpec()
 
 core = request.RawPC("core")
-core.hardware_type = params.nodetype
+core.hardware_type = params.cn_nodetype
 core.disk_image = UBUNTU_IMG
 iface1 = core.addInterface("cn-if")
 iface1.addAddress(rspec.IPv4Address("192.168.1.1", "255.255.255.0"))
 core.addService(rspec.Execute(shell="bash", command=OPEN5GS_DEPLOY_SCRIPT))
 
 node1 = request.RawPC("node1")
-node1.hardware_type = params.nodetype
+node1.hardware_type = params.sdr_nodetype
 node1.disk_image = UBUNTU_IMG
 iface2 = node1.addInterface("eth1")
 iface2.addAddress(rspec.IPv4Address("192.168.1.22", "255.255.255.0"))
 
 node2 = request.RawPC("node2")
-node2.hardware_type = params.nodetype
+node2.hardware_type = params.sdr_nodetype
 node2.disk_image = UBUNTU_IMG
 iface3 = node2.addInterface("eth1")
 iface3.addAddress(rspec.IPv4Address("192.168.1.33", "255.255.255.0"))
