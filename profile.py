@@ -127,7 +127,7 @@ node_types = [
 
 pc.defineParameter(
     name="cn_nodetype",
-    description="Type of compute node to used.",
+    description="Type of compute node to used for CN.",
     typ=portal.ParameterType.STRING,
     defaultValue=node_types[0],
     legalValues=node_types,
@@ -136,7 +136,7 @@ pc.defineParameter(
 
 pc.defineParameter(
     name="sdr_nodetype",
-    description="Type of compute node to used.",
+    description="Type of compute node to used for SDR.",
     typ=portal.ParameterType.STRING,
     defaultValue=node_types[1],
     legalValues=node_types,
