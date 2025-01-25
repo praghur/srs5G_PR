@@ -164,10 +164,10 @@ node2.disk_image = UBUNTU_IMG
 iface3 = node2.addInterface("eth1")
 iface3.addAddress(rspec.IPv4Address("192.168.1.33", "255.255.255.0"))
 
-for srs_type, type_hash in DEFAULT_SRS_HASHES.items():
-    cmd = "{} '{}' {}".format(SRS_DEPLOY_SCRIPT, type_hash, srs_type)
-    node1.addService(rspec.Execute(shell="bash", command=cmd))
-    node2.addService(rspec.Execute(shell="bash", command=cmd))
+#for srs_type, type_hash in DEFAULT_SRS_HASHES.items():
+#    cmd = "{} '{}' {}".format(SRS_DEPLOY_SCRIPT, type_hash, srs_type)
+#    node1.addService(rspec.Execute(shell="bash", command=cmd))
+#    node2.addService(rspec.Execute(shell="bash", command=cmd))
     
 
 core.addService(rspec.Execute(shell="bash", command=OPEN5GS_DEPLOY_SCRIPT))
