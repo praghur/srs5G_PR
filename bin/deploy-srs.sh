@@ -20,6 +20,7 @@ install_srsran_common () {
         libmbedtls-dev \
         libsctp-dev \
         libzmq3-dev
+    touch install_srsran_common-complete
 }
 
 clone_build_install () {
@@ -37,6 +38,7 @@ clone_build_install () {
     make -j `nproc`
     sudo make install
     sudo ldconfig
+    touch clone_build_install-complete
 }
 
 install_srsran_4g () {
@@ -49,6 +51,7 @@ install_srsran_4g () {
     clone_build_install
     sudo srsran_install_configs.sh service
     sudo cp /local/repository/etc/srsran/* /etc/srsran/
+    touch install_srsran_4g-complete
 }
 
 install_srsran_project () {
@@ -62,6 +65,7 @@ install_srsran_project () {
         libgtest-dev
 
     clone_build_install
+    touch install_srsran_project-complete
 }
 
 install_srsran_gui () {
@@ -74,6 +78,7 @@ install_srsran_gui () {
         qtbase5-dev
 
     clone_build_install
+    touch install_srsran_gui-complete
 }
 
 if [ "$SRS_TYPE" = "srsRAN_4G" ]; then
@@ -87,4 +92,4 @@ else
     exit 1
 fi
 
-touch $SRCDIR/$SRS_TYPE-setup-complete
+touch $SRCDIR/$SRS_TYPE-setup-completed-fully
