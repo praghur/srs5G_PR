@@ -25,9 +25,9 @@ install_srsran_common () {
 
 clone_build_install () {
     cd $SRCDIR
-    git clone $SRS_REPO
+    git clone $SRS_REPO #https://github.com/srsran/srsRAN_4G OR https://github.com/srsran/srsRAN_Project
     cd $SRS_TYPE
-    git checkout $COMMIT_HASH
+    git checkout $COMMIT_HASH 
     mkdir build
     cd build
     if [ "$SRS_TYPE" = "srsRAN_Project" ]; then
