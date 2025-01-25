@@ -150,19 +150,19 @@ core = request.RawPC("core")
 core.hardware_type = params.cn_nodetype
 core.disk_image = UBUNTU_IMG
 iface1 = core.addInterface("eth1")
-iface1.addAddress(rspec.IPv4Address("192.168.0.11", "255.255.255.0"))
+iface1.addAddress(rspec.IPv4Address("192.168.1.11", "255.255.255.0"))
 
 node1 = request.RawPC("node1")
 node1.hardware_type = params.sdr_nodetype
 node1.disk_image = UBUNTU_IMG
 iface2 = node1.addInterface("eth1")
-iface2.addAddress(rspec.IPv4Address("192.168.0.22", "255.255.255.0"))
+iface2.addAddress(rspec.IPv4Address("192.168.1.22", "255.255.255.0"))
 
 node2 = request.RawPC("node2")
 node2.hardware_type = params.sdr_nodetype
 node2.disk_image = UBUNTU_IMG
 iface3 = node2.addInterface("eth1")
-iface3.addAddress(rspec.IPv4Address("192.168.0.33", "255.255.255.0"))
+iface3.addAddress(rspec.IPv4Address("192.168.1.33", "255.255.255.0"))
 
 for srs_type, type_hash in DEFAULT_SRS_HASHES.items():
     cmd = "{} '{}' {}".format(SRS_DEPLOY_SCRIPT, type_hash, srs_type)
