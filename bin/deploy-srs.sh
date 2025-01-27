@@ -19,6 +19,9 @@ sudo apt install -y \
         libmbedtls-dev \
         libsctp-dev \
         libzmq3-dev
+        build-essential \
+        libboost-program-options-dev \
+        libconfig++-dev 
 cd $SRCDIR
 git clone https://github.com/srsran/srsRAN_4G
 cd srsRAN_4G
@@ -29,10 +32,36 @@ cmake ../
 make -j `nproc`
 sudo make install
 sudo ldconfig
-touch $SRCDIR/$SRS_TYPE-installed_srsran_4G
+touch $SRCDIR/$SRS_TYPE-installed_srsran_4G-complete
 
 #Install srsran_Project
-
+sudo apt update
+sudo apt install -y \
+        cmake \
+        libfftw3-dev \
+        libmbedtls-dev \
+        libsctp-dev \
+        libzmq3-dev \
+        build-essential \
+        libboost-program-options-dev \
+        libconfig++-dev \
+        make \
+        gcc \
+        g++ \
+        pkg-config \
+        libyaml-cpp-dev \
+        libgtest-dev
+cd $SRCDIR
+git clone https://github.com/srsran/srsRAN_Project
+cd srsRAN_Project
+git checkout 4ac5300d4927b5199af69e6bc2e55d061fc33652
+mkdir build
+cd build
+cmake ../ -DENABLE_EXPORT=ON -DENABLE_ZEROMQ=ON
+make -j `nproc`
+sudo make install
+sudo ldconfig
+touch $SRCDIR/$SRS_TYPE-installed_srsran_project-complete
 
 install_srsran_common () {
     sudo apt update
@@ -41,10 +70,10 @@ install_srsran_common () {
         libfftw3-dev \
         libmbedtls-dev \
         libsctp-dev \
-        libzmq3-dev
+        libzmq3-dev \
         build-essential \
         libboost-program-options-dev \
-        libconfig++-dev 
+        libconfig++-dev \
     touch $SRCDIR/$SRS_TYPE-install_srsran_common-complete
 }
 
