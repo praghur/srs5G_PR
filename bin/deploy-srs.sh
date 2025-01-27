@@ -20,7 +20,7 @@ sudo apt install -y \
 sudo apt install -y \
         build-essential \
         libboost-program-options-dev \
-        libconfig++-dev \
+        libconfig++-dev 
 cd $SRCDIR
 git clone https://github.com/srsran/srsRAN_4G
 cd srsRAN_4G
