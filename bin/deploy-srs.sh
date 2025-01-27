@@ -11,6 +11,28 @@ if [ -f $SRCDIR/$SRS_TYPE-setup-complete ]; then
     exit 0
 fi
 
+#Install srsran_4G
+sudo apt update
+sudo apt install -y \
+        cmake \
+        libfftw3-dev \
+        libmbedtls-dev \
+        libsctp-dev \
+        libzmq3-dev
+cd $SRCDIR
+git clone https://github.com/srsran/srsRAN_4G
+cd srsRAN_4G
+git checkout release_23_04_1
+mkdir build
+cd build
+cmake ../
+make -j `nproc`
+sudo make install
+sudo ldconfig
+touch $SRCDIR/$SRS_TYPE-installed_srsran_4G
+
+#Install srsran_Project
+
 
 install_srsran_common () {
     sudo apt update
@@ -20,6 +42,9 @@ install_srsran_common () {
         libmbedtls-dev \
         libsctp-dev \
         libzmq3-dev
+        build-essential \
+        libboost-program-options-dev \
+        libconfig++-dev 
     touch $SRCDIR/$SRS_TYPE-install_srsran_common-complete
 }
 
@@ -67,29 +92,5 @@ install_srsran_project () {
     clone_build_install
     touch $SRCDIR/$SRS_TYPE-install_srsran_project-complete
 }
-
-install_srsran_gui () {
-    sudo apt update
-    sudo apt install -y \
-        libboost-system-dev \
-        libboost-test-dev \
-        libboost-thread-dev \
-        libqwt-qt5-dev \
-        qtbase5-dev
-
-    clone_build_install
-    touch $SRCDIR/$SRS_TYPE-install_srsran_gui-complete
-}
-
-if [ "$SRS_TYPE" = "srsRAN_4G" ]; then
-    install_srsran_4g
-elif [ "$SRS_TYPE" = "srsRAN_Project" ]; then
-    install_srsran_project
-elif [ "$SRS_TYPE" = "srsGUI" ]; then
-    install_srsran_gui
-else
-    echo "unknown SRS_TYPE: $SRS_TYPE"
-    exit 1
-fi
 
 touch $SRCDIR/$SRS_TYPE-setup-completed-fully
