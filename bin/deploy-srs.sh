@@ -34,7 +34,7 @@ cmake ../
 make -j `nproc`
 sudo make install
 sudo ldconfig
-touch $SRCDIR-installed_srsran_4G-complete
+touch $SRCDIR\installed_srsran_4G-complete
 
 #Install srsran_Project
 sudo apt update
@@ -43,10 +43,14 @@ sudo apt install -y \
         libfftw3-dev \
         libmbedtls-dev \
         libsctp-dev \
-        libzmq3-dev \
+        libzmq3-dev 
+
+sudo apt install -y \
         build-essential \
         libboost-program-options-dev \
-        libconfig++-dev \
+        libconfig++-dev 
+
+sudo apt install -y \
         make \
         gcc \
         g++ \
@@ -63,6 +67,6 @@ cmake ../ -DENABLE_EXPORT=ON -DENABLE_ZEROMQ=ON
 make -j `nproc`
 sudo make install
 sudo ldconfig
-touch $SRCDIR-installed_srsran_project-complete
+touch $SRCDIR\installed_srsran_project-complete
 
-touch $SRCDIR-setup-completed-fully
+touch $SRCDIR\setup-completed-fully
