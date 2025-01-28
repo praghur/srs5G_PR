@@ -36,7 +36,7 @@ sudo ip netns add ue1
 sudo ip netns add ue2
 
 # start tailing the Open5GS AMF log
-tail -f /var/log/open5gs/amf.log
+sudo journalctl -u open5gs-amfd -u open5gs-smfd -f --output cat
 ```
 
 In a second session:
