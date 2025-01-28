@@ -11,6 +11,7 @@ fi
 #Install srsran_4G
 sudo apt update
 sudo apt install -y \
+        tshark \
         cmake \
         libfftw3-dev \
         libmbedtls-dev \
@@ -36,6 +37,7 @@ touch $SRCDIR\installed_srsran_4G-complete
 #Install srsran_Project
 sudo apt update
 sudo apt install -y \
+        tshark \
         cmake \
         libfftw3-dev \
         libmbedtls-dev \
