@@ -32,7 +32,7 @@ cmake ../
 make -j `nproc`
 sudo make install
 sudo ldconfig
-touch $SRCDIR\installed_srsran_4G-complete
+touch $SRCDIR/installed_srsran_4G-complete
 
 #Install srsran_Project
 sudo apt update
@@ -66,6 +66,6 @@ cmake ../ -DENABLE_EXPORT=ON -DENABLE_ZEROMQ=ON
 make -j `nproc`
 sudo make install
 sudo ldconfig
-touch $SRCDIR\installed_srsran_project-complete
+touch $SRCDIR/installed_srsran_project-complete
 
-touch $SRCDIR\setup-completed-fully
+touch $SRCDIR/setup-completed-fully
