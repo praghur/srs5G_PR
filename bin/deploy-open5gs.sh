@@ -58,4 +58,15 @@ chmod +x open5gs-dbctl
 ./open5gs-dbctl type 999700123456789 1  # APN type IPV4
 ./open5gs-dbctl add_ue_with_apn 999700123456790 00112233445566778899aabbccddeeff 63BFA50EE6523365FF14C1F45F88737D internet  # IMSI,K,OPC
 ./open5gs-dbctl type 999700123456790 1  # APN type IPV4
+
+##For UE1 connecting with gNB1
+./open5gs-dbctl add_ue_with_slice 999700123456789 00112233445566778899aabbccddeeff 63BFA50EE6523365FF14C1F45F88737D internet  # IMSI,K,OPC
+./open5gs-dbctl type 999700123456789 1   # APN type IPV4
+./open5gs-dbctl static_ip 999700123456789 10.45.1.10
+
+##For UE2 connecting with gNB2
+./open5gs-dbctl add_ue_with_slice 999700123456790 00112233445566778899aabbccddeeff 63BFA50EE6523365FF14C1F45F88737D internet  # IMSI,K,OPC
+./open5gs-dbctl type 999700123456790 1  # APN type IPV4
+./open5gs-dbctl static_ip 999700123456790 10.45.2.10
+
 touch $SRCDIR/open5gs-setup-complete
