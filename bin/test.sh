@@ -15,17 +15,17 @@ sudo ip netns exec ue2 tcpdump -i tun_srsue -w ue2_capture.pcap
 
 
 #Save results from CN
-scp praghur@pc721.emulab.net:cn_results.csv /home/ubuntu/
-scp praghur@pc816.emulab.net:ogstun_capture.pcap /home/ubuntu/
+scp praghur@pc817.emulab.net:cn_results.csv /home/ubuntu/
+scp praghur@pc817.emulab.net:ogstun_capture.pcap /home/ubuntu/
 
 #Save results from UE1
-scp praghur@pc05-fort.emulab.net:ue1_results.csv /home/ubuntu/
-scp praghur@pc05-fort.emulab.net:ue1_capture.pcap /home/ubuntu/
-scp praghur@pc05-fort.emulab.net:/tmp/gnb1_mac.pcap /home/ubuntu/
-scp praghur@pc05-fort.emulab.net:/tmp/gnb1_ngap.pcap /home/ubuntu/
+scp praghur@pc845.emulab.net:ue1_results.csv /home/ubuntu/
+scp praghur@pc845.emulab.net:ue1_capture.pcap /home/ubuntu/
+scp praghur@pc845.emulab.net:/tmp/gnb1_mac.pcap /home/ubuntu/
+scp praghur@pc845.emulab.net:/tmp/gnb1_ngap.pcap /home/ubuntu/
 
 #Save results from UE2
-scp praghur@pc11-fort.emulab.net:ue2_results.csv /home/ubuntu/
-scp praghur@pc11-fort.emulab.net:ue2_capture.pcap /home/ubuntu/
-scp praghur@pc11-fort.emulab.net:/tmp/gnb2_mac.pcap /home/ubuntu/
-scp praghur@pc11-fort.emulab.net:/tmp/gnb2_ngap.pcap /home/ubuntu/
+scp praghur@pc799.emulab.net:ue2_results.csv /home/ubuntu/
+scp praghur@pc799.emulab.net:ue2_capture.pcap /home/ubuntu/
+scp praghur@pc799.emulab.net:/tmp/gnb2_mac.pcap /home/ubuntu/
+scp praghur@pc799.emulab.net:/tmp/gnb2_ngap.pcap /home/ubuntu/
