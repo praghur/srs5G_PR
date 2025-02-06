@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Function to run traceroute 40 times randomly within an hour and write results to a CSV file
+# Function to run traceroute 50 times randomly within an hour and write results to a CSV file
 run_traceroute() {
-  for i in {1..40}
+  for i in {1..50}
   do
     result=$(traceroute -U -q 10 -f 2 -m 2 -p 33435 10.45.2.10)
     echo "$(date), $result" >> traceroute_results.csv
-    sleep $((RANDOM % 90 + 30))  # Sleep for a random time between 30 and 120 seconds
+    sleep $((RANDOM % 70 + 1))  # Sleep for a random time between 1 to 70 seconds
   done
 }
 
