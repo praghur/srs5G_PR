@@ -64,13 +64,6 @@ sudo gnb -c /local/repository/etc/srsran/gnb1.conf
 sudo gnb -c /local/repository/etc/srsran/gnb2.conf
 ```
 
-# start the gNodeB -- Node 3
-sudo gnb -c /local/repository/etc/srsran/gnb3.conf
-```
-# start the gNodeB -- Node 4
-sudo gnb -c /local/repository/etc/srsran/gnb4.conf
-```
-
 The AMF should show a connection from the gNodeB via the N2 interface and
 `tshark` will show NG setup/response messages.
 
