@@ -35,6 +35,12 @@ sudo ip netns add ue1
 # create a network namespace for the UE -- Node 2
 sudo ip netns add ue2
 
+# create a network namespace for the UE -- Node 3
+sudo ip netns add ue3
+
+# create a network namespace for the UE -- Node 4
+sudo ip netns add ue4
+
 # start tailing the Open5GS AMF log
 sudo journalctl -u open5gs-amfd -u open5gs-smfd -f --output cat
 ```
@@ -58,19 +64,32 @@ sudo gnb -c /local/repository/etc/srsran/gnb1.conf
 sudo gnb -c /local/repository/etc/srsran/gnb2.conf
 ```
 
+# start the gNodeB -- Node 3
+sudo gnb -c /local/repository/etc/srsran/gnb3.conf
+```
+# start the gNodeB -- Node 4
+sudo gnb -c /local/repository/etc/srsran/gnb4.conf
+```
+
 The AMF should show a connection from the gNodeB via the N2 interface and
 `tshark` will show NG setup/response messages.
 
 In a forth session:
 
-```
 # start the UE -- Node 1
 sudo srsue /local/repository/etc/srsran/ue1.conf
 ```
 
-```
 # start the UE -- Node 2
 sudo srsue /local/repository/etc/srsran/ue2.conf
+```
+
+# start the UE -- Node 3
+sudo srsue /local/repository/etc/srsran/ue3.conf
+```
+
+# start the UE -- Node 4
+sudo srsue /local/repository/etc/srsran/ue4.conf
 ```
 
 As the UE attaches to the network, the AMF log and gNodeB process will show
