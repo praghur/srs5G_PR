@@ -10,7 +10,7 @@ echo "Log Line" > $output_csv
 # Read the log file line by line
 while IFS= read -r line; do
     # Check if the line contains "2025-02-", "sinr_ch_est", or "sinr_eq[sel]"
-    if [[ $line == *"2025-02-"* || $line == *"sinr_ch_est"* || $line == *"sinr_eq[sel]"* ]]; then
+    if [[ $line == *"2025-02-"* || $line == *"sinr_ch_est"* || $line == *"sinr_eq[sel]"* || $line == *"rv="* ]]; then
         # Append the entire line to the CSV file
         echo "$line" >> $output_csv
     fi
